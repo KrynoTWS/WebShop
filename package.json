@@ -1,0 +1,27 @@
+{
+    "name": "energy-drink-shop",
+    "version": "1.0.0",
+    "scripts": {
+        "dev": "parcel src/index.html",
+        "format": "prettier \"src/**/*.{js,html,css}\" --write",
+        "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "eslint": "^9.39.1",
+        "prettier": "^2.0.2"
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^17.2.3",
+        "express": "^5.2.1",
+        "mongodb": "^7.0.0",
+        "mongoose": "^9.0.1",
+        "parcel": "^2.0.1",
+        "react": "^18.0.0",
+        "react-router": "^7.9.6"
+    }
+}

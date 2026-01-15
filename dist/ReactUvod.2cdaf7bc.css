@@ -1,0 +1,64 @@
+body {
+  color: #000;
+  text-align: center;
+  background-color: #8fab73;
+  margin-top: 15px;
+  font-family: Franklin Gothic Medium, Arial Narrow, Arial, sans-serif;
+}
+
+select {
+  cursor: pointer;
+  background-color: #f46036;
+  border: 2px dotted #000;
+  border-radius: 15px;
+  margin: auto 10px;
+  padding: 5px;
+  font-size: 16px;
+}
+
+button {
+  cursor: pointer;
+  background-color: #90ddaf;
+  border: 2px dotted #000;
+  border-radius: 15px;
+  margin: 20px;
+  padding: 5px 10px;
+  font-size: 16px;
+}
+
+.result {
+  background-color: #f18955;
+  border: 5px dotted #000;
+  width: 60%;
+  margin: 5% auto;
+}
+
+.details {
+  background-color: #dfe765;
+  border: 5px dotted #000;
+  width: 40%;
+  margin: 10% auto;
+}
+
+.modal {
+  background-color: #f18955;
+  border: 2px solid #000;
+  border-radius: 10px;
+  width: 35%;
+  margin: auto;
+  padding: 30px;
+  position: fixed;
+}
+
+.modal-overlay {
+  background-color: #00000080;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+/*# sourceMappingURL=ReactUvod.2cdaf7bc.css.map */
