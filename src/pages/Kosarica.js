@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router";
-import CartContext from "./KosaricaContext.js";
+import CartContext from "../context/KosaricaContext.js";
 
 const Cart = () => {
-  const { cart } = useContext(CartContext);
+  const { cart, checkout } = useContext(CartContext);
   const navigate = useNavigate();
 
   if (cart.length === 0)
@@ -19,8 +19,8 @@ const Cart = () => {
 return (
     <div>
       <h2>Košarica</h2>
-      {cart.map(item => (
-        <div key={item._id}>
+      {cart.map((item)  => (
+        <div key={`${item._id}`}>
           <h3>{item.name}</h3>
           <p>Vrsta: {item.type}</p>
           <p>Podvrsta: {item.subtype}</p>
@@ -28,6 +28,7 @@ return (
         </div>
       ))}
       <br />
+      <button onClick={checkout}>Naruči</button>
       <button onClick={() => navigate("/")}>
         Povratak na pretraživanje
       </button>

@@ -7,18 +7,26 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (product) => {
     setCart(prev => {
-      const existing = prev.find(item => item._id === product.id);
+      const existing = prev.find(item => item._id === product._id);
       if (existing) {
         return prev.map(item =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+          item._id === product._id ? { ...item, quantity: item.quantity + 1 } : item
         );
       }
       return [...prev, { ...product, quantity: 1 }];
     });
   };
+  const checkout = () => {
+    if (cart.length === 0) {
+      alert("Košarica je prazna!");
+      return;
+    }
+    alert("Kupnja obavljena!");
+    setCart([]);
+  };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart }}>
+    <CartContext.Provider value={{ cart, addToCart, checkout }}>
       {children}
     </CartContext.Provider>
   );
