@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router";
+import { fetchWithToken } from "../api";
 import CartContext from "../context/KosaricaContext";
 import FavoritesContext from "../context/FavoritesContext";
 import AuthContext from "../context/AuthContext";
@@ -19,12 +20,7 @@ const Details = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const token = localStorage.getItem("token");
-        const res = await fetch(`http://localhost:5123/items/${id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-
-        const data = await res.json();
+        const data = await fetchWithToken(`/items/${id}`);
         setProduct(data);
         setLoading(false);
       } catch (err) {

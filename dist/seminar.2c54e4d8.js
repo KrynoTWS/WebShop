@@ -37832,6 +37832,7 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
+var _api = require("../api");
 var _result = require("../components/Result");
 var _resultDefault = parcelHelpers.interopDefault(_result);
 var _dropdown = require("../components/Dropdown");
@@ -37846,7 +37847,7 @@ const Search = ()=>{
     const [selectedSubtype, SubtypeDropdown, setSelectedSubtype, setSubtypeOptions] = (0, _dropdownDefault.default)("Subtype", "", []);
     //dohvaćanje svih proizvoda
     (0, _react.useEffect)(()=>{
-        fetch("http://localhost:5123/items").then((res)=>res.json()).then((items)=>{
+        (0, _api.fetchWithToken)("/items").then((items)=>{
             //spremanje svih proizvoda
             setAllItems(items);
             setFilteredItems(items);
@@ -37980,7 +37981,7 @@ $RefreshReg$(_c, "Search");
   globalThis.$RefreshReg$ = prevRefreshReg;
   globalThis.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","../components/Result":"k3ToM","../components/Dropdown":"6oHvD","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}],"k3ToM":[function(require,module,exports,__globalThis) {
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","../components/Result":"k3ToM","../components/Dropdown":"6oHvD","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi","../api":"38UJz"}],"k3ToM":[function(require,module,exports,__globalThis) {
 var $parcel$ReactRefreshHelpers$b1c9 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 $parcel$ReactRefreshHelpers$b1c9.init();
 var prevRefreshReg = globalThis.$RefreshReg$;
@@ -38565,6 +38566,7 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactRouter = require("react-router");
+var _api = require("../api");
 var _kosaricaContext = require("../context/KosaricaContext");
 var _kosaricaContextDefault = parcelHelpers.interopDefault(_kosaricaContext);
 var _favoritesContext = require("../context/FavoritesContext");
@@ -38590,13 +38592,7 @@ const Details = ()=>{
     (0, _react.useEffect)(()=>{
         const fetchProduct = async ()=>{
             try {
-                const token = localStorage.getItem("token");
-                const res = await fetch(`http://localhost:5123/items/${id}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
-                const data = await res.json();
+                const data = await (0, _api.fetchWithToken)(`/items/${id}`);
                 setProduct(data);
                 setLoading(false);
             } catch (err) {
@@ -38627,14 +38623,14 @@ const Details = ()=>{
         children: "U\u010Ditavanje..."
     }, void 0, false, {
         fileName: "src/pages/Details.js",
-        lineNumber: 49,
+        lineNumber: 45,
         columnNumber: 23
     }, undefined);
     if (!product) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
         children: "Proizvod ne postoji!"
     }, void 0, false, {
         fileName: "src/pages/Details.js",
-        lineNumber: 50,
+        lineNumber: 46,
         columnNumber: 24
     }, undefined);
     const isFavorite = favorites.some((f)=>f._id === product._id);
@@ -38646,7 +38642,7 @@ const Details = ()=>{
                 children: product.name
             }, void 0, false, {
                 fileName: "src/pages/Details.js",
-                lineNumber: 56,
+                lineNumber: 52,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
@@ -38656,8 +38652,104 @@ const Details = ()=>{
                             "Vrsta:",
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                                 fileName: "src/pages/Details.js",
-                                lineNumber: 57,
+                                lineNumber: 53,
                                 columnNumber: 24
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/pages/Details.js",
+                        lineNumber: 53,
+                        columnNumber: 10
+                    }, undefined),
+                    " ",
+                    product.type
+                ]
+            }, void 0, true, {
+                fileName: "src/pages/Details.js",
+                lineNumber: 53,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                        children: [
+                            "Podvrsta:",
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                                fileName: "src/pages/Details.js",
+                                lineNumber: 54,
+                                columnNumber: 27
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/pages/Details.js",
+                        lineNumber: 54,
+                        columnNumber: 10
+                    }, undefined),
+                    " ",
+                    product.subtype
+                ]
+            }, void 0, true, {
+                fileName: "src/pages/Details.js",
+                lineNumber: 54,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                        children: [
+                            "Opis:",
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                                fileName: "src/pages/Details.js",
+                                lineNumber: 55,
+                                columnNumber: 23
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/pages/Details.js",
+                        lineNumber: 55,
+                        columnNumber: 10
+                    }, undefined),
+                    " ",
+                    product.description
+                ]
+            }, void 0, true, {
+                fileName: "src/pages/Details.js",
+                lineNumber: 55,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                        children: [
+                            "Boja pi\u0107a:",
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                                fileName: "src/pages/Details.js",
+                                lineNumber: 56,
+                                columnNumber: 28
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/pages/Details.js",
+                        lineNumber: 56,
+                        columnNumber: 10
+                    }, undefined),
+                    " ",
+                    product.color
+                ]
+            }, void 0, true, {
+                fileName: "src/pages/Details.js",
+                lineNumber: 56,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                        children: [
+                            "Kofein:",
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                                fileName: "src/pages/Details.js",
+                                lineNumber: 57,
+                                columnNumber: 25
                             }, undefined)
                         ]
                     }, void 0, true, {
@@ -38666,7 +38758,8 @@ const Details = ()=>{
                         columnNumber: 10
                     }, undefined),
                     " ",
-                    product.type
+                    product.caffeinePercent * 100,
+                    "%"
                 ]
             }, void 0, true, {
                 fileName: "src/pages/Details.js",
@@ -38677,11 +38770,11 @@ const Details = ()=>{
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
                         children: [
-                            "Podvrsta:",
+                            "Proizvo\u0111a\u010D:",
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                                 fileName: "src/pages/Details.js",
                                 lineNumber: 58,
-                                columnNumber: 27
+                                columnNumber: 29
                             }, undefined)
                         ]
                     }, void 0, true, {
@@ -38690,108 +38783,11 @@ const Details = ()=>{
                         columnNumber: 10
                     }, undefined),
                     " ",
-                    product.subtype
-                ]
-            }, void 0, true, {
-                fileName: "src/pages/Details.js",
-                lineNumber: 58,
-                columnNumber: 7
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                        children: [
-                            "Opis:",
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
-                                fileName: "src/pages/Details.js",
-                                lineNumber: 59,
-                                columnNumber: 23
-                            }, undefined)
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/pages/Details.js",
-                        lineNumber: 59,
-                        columnNumber: 10
-                    }, undefined),
-                    " ",
-                    product.description
-                ]
-            }, void 0, true, {
-                fileName: "src/pages/Details.js",
-                lineNumber: 59,
-                columnNumber: 7
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                        children: [
-                            "Boja pi\u0107a:",
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
-                                fileName: "src/pages/Details.js",
-                                lineNumber: 60,
-                                columnNumber: 28
-                            }, undefined)
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/pages/Details.js",
-                        lineNumber: 60,
-                        columnNumber: 10
-                    }, undefined),
-                    " ",
-                    product.color
-                ]
-            }, void 0, true, {
-                fileName: "src/pages/Details.js",
-                lineNumber: 60,
-                columnNumber: 7
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                        children: [
-                            "Kofein:",
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
-                                fileName: "src/pages/Details.js",
-                                lineNumber: 61,
-                                columnNumber: 25
-                            }, undefined)
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/pages/Details.js",
-                        lineNumber: 61,
-                        columnNumber: 10
-                    }, undefined),
-                    " ",
-                    product.caffeinePercent * 100,
-                    "%"
-                ]
-            }, void 0, true, {
-                fileName: "src/pages/Details.js",
-                lineNumber: 61,
-                columnNumber: 7
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                        children: [
-                            "Proizvo\u0111a\u010D:",
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
-                                fileName: "src/pages/Details.js",
-                                lineNumber: 62,
-                                columnNumber: 29
-                            }, undefined)
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/pages/Details.js",
-                        lineNumber: 62,
-                        columnNumber: 10
-                    }, undefined),
-                    " ",
                     product.manufacturer?.name || product.manufacturer
                 ]
             }, void 0, true, {
                 fileName: "src/pages/Details.js",
-                lineNumber: 62,
+                lineNumber: 58,
                 columnNumber: 7
             }, undefined),
             user && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
@@ -38801,7 +38797,7 @@ const Details = ()=>{
                         children: isFavorite ? "Ukloni iz favorita" : "Dodaj u favorite"
                     }, void 0, false, {
                         fileName: "src/pages/Details.js",
-                        lineNumber: 66,
+                        lineNumber: 62,
                         columnNumber: 11
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -38809,7 +38805,7 @@ const Details = ()=>{
                         children: "Dodaj u ko\u0161aricu"
                     }, void 0, false, {
                         fileName: "src/pages/Details.js",
-                        lineNumber: 69,
+                        lineNumber: 65,
                         columnNumber: 11
                     }, undefined)
                 ]
@@ -38819,7 +38815,7 @@ const Details = ()=>{
                 children: "Pretra\u017Eivanje"
             }, void 0, false, {
                 fileName: "src/pages/Details.js",
-                lineNumber: 72,
+                lineNumber: 68,
                 columnNumber: 7
             }, undefined),
             modal.show && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _modalDefault.default), {
@@ -38833,18 +38829,18 @@ const Details = ()=>{
                     ]
                 }, void 0, true, {
                     fileName: "src/pages/Details.js",
-                    lineNumber: 76,
+                    lineNumber: 72,
                     columnNumber: 11
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/pages/Details.js",
-                lineNumber: 75,
+                lineNumber: 71,
                 columnNumber: 9
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/pages/Details.js",
-        lineNumber: 55,
+        lineNumber: 51,
         columnNumber: 5
     }, undefined);
 };
@@ -38864,7 +38860,7 @@ $RefreshReg$(_c, "Details");
   globalThis.$RefreshReg$ = prevRefreshReg;
   globalThis.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","react-router":"2jawN","../context/KosaricaContext":"2CL4Y","../context/FavoritesContext":"knFIo","../components/Modal":"5Eajr","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi","../context/AuthContext":"lhbhb"}],"5s4Oa":[function(require,module,exports,__globalThis) {
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","react-router":"2jawN","../context/KosaricaContext":"2CL4Y","../context/FavoritesContext":"knFIo","../components/Modal":"5Eajr","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi","../context/AuthContext":"lhbhb","../api":"38UJz"}],"5s4Oa":[function(require,module,exports,__globalThis) {
 var $parcel$ReactRefreshHelpers$63aa = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 $parcel$ReactRefreshHelpers$63aa.init();
 var prevRefreshReg = globalThis.$RefreshReg$;

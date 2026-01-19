@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { fetchWithToken } from "../api";
 import Result from "../components/Result";
 import useDropdown from "../components/Dropdown";
 
@@ -11,8 +12,7 @@ const Search = () => {
 
   //dohvaćanje svih proizvoda
   useEffect(() => {
-    fetch("http://localhost:5123/items")
-      .then(res => res.json())
+    fetchWithToken("/items")
       .then(items => {
         //spremanje svih proizvoda
         setAllItems(items);
