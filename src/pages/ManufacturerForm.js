@@ -15,7 +15,7 @@ const ManufacturerForm = () => {
     description: "",
     logoUrl: "",
   });
-
+  //dobavljanje podataka/ako nije admin, nazad
   useEffect(() => {
     if (!user || !isAdmin()) navigate("/");
 
@@ -54,22 +54,22 @@ const ManufacturerForm = () => {
     <div>
       <h2>{id ? "Edit Manufacturer" : "Add New Manufacturer"}</h2>
       <form onSubmit={handleSubmit}>
-        <label>Name</label>
+        <label>Naziv</label>
         <input name="name" value={manufacturer.name} onChange={handleChange} />
         <br />
-        <label>Country</label>
+        <label>Zemlja</label>
         <input name="country" value={manufacturer.country} onChange={handleChange} />
         <br />
-        <label>Founded Year</label>
+        <label>Godina osnivanja</label>
         <input name="foundedYear" value={manufacturer.foundedYear} onChange={handleChange} />
         <br />
-        <label>Description</label>
+        <label>Opis</label>
         <textarea name="description" value={manufacturer.description} onChange={handleChange} />
         <br />
         <label>Logo URL</label>
         <input name="logoUrl" value={manufacturer.logoUrl} onChange={handleChange} />
         <br />
-        <button type="submit">Save</button>
+        <button type="submit">Spremi</button>
       </form>
     </div>
   );

@@ -86,7 +86,7 @@ const ItemForm = () => {
   const handleTypeChange = (e) => {
     const val = e.target.value;
     if (val === "__new__") {
-      const newType = prompt("Enter new type:");
+      const newType = prompt("Unesi novu vrstu:");
       if (newType) {
         setTipovi(prev => [...prev, newType]);
         setType(newType);
@@ -101,7 +101,7 @@ const ItemForm = () => {
   const handleSubtypeChange = (e) => {
     const val = e.target.value;
     if (val === "__new__") {
-      const newSubtype = prompt("Enter new subtype:");
+      const newSubtype = prompt("Unesi novu podvrstu:");
       if (newSubtype) {
         setPodtipovi(prev => ({
           ...prev,
@@ -147,7 +147,7 @@ const ItemForm = () => {
   //forma za dodavanje/uređivanje itema
   return (
     <div className="editForm">
-      <h2>{id ? "Edit Item" : "Add New Item"}</h2>
+      <h2>{id ? "Izmjeni produkt" : "Dodaj novi produkt"}</h2>
       <form onSubmit={handleSubmit}>
         <label>Ime</label>
         <input name="name" value={item.name} onChange={handleChange} />

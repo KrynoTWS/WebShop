@@ -2,7 +2,7 @@
     "name": "energy-drink-shop",
     "version": "1.0.0",
     "scripts": {
-        "dev": "parcel src/index.html",
+        "dev": "parcel src/index.html --port 1250",
         "format": "prettier \"src/**/*.{js,html,css}\" --write",
         "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
         "test": "echo \"Error: no test specified\" && exit 1"

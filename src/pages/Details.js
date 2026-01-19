@@ -10,12 +10,12 @@ const Details = () => {
   const navigate = useNavigate();
   const { addToCart } = useContext(CartContext);
   const { favorites, toggleFavorite } = useContext(FavoritesContext);
-  const { user } = useContext(AuthContext);
+  const { user, token } = useContext(AuthContext);
 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [modal, setModal] = useState({ show: false });
-
+  //dohvaćanje detalja proizvoda, provjera je li korisnik
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -23,11 +23,6 @@ const Details = () => {
         const res = await fetch(`http://localhost:5123/items/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-
-        if (res.status === 401) {
-          navigate("/login");
-          return;
-        }
 
         const data = await res.json();
         setProduct(data);
@@ -55,7 +50,7 @@ const Details = () => {
   if (!product) return <h2>Proizvod ne postoji!</h2>;
 
   const isFavorite = favorites.some(f => f._id === product._id);
-
+  //ako nije ulogiran, ne može kupiti ni favorizirati
   return (
     <div className="details">
       <h1>{product.name}</h1>

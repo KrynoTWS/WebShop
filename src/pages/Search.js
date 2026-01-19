@@ -1,67 +1,78 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import Result from "../components/Result";
 import useDropdown from "../components/Dropdown";
 
 const Search = () => {
-  const [tipovi, setTipovi] = useState([]);
-  const [podtipovi, setPodtipovi] = useState({});
-  const [allProducts, setAllProducts] = useState([]);
-  const [products, setProducts] = useState([]);
+  const [allItems, setAllItems] = useState({});
+  const [filteredItems, setFilteredItems] = useState([]);
+  const [subtypesByType, setSubtypesByType] = useState([]);
+  const [selectedType, TypeDropdown, setSelectedType, setTypeOptions] = useDropdown("Type", "", []);
+  const [selectedSubtype, SubtypeDropdown, setSelectedSubtype, setSubtypeOptions] = useDropdown("Subtype", "", []);
 
-  const [type, TypeDropdown, setType, setTypeOptions] = useDropdown("Type", "", []);
-  const [subtype, SubtypeDropdown, setSubtype, setSubtypeOptions] = useDropdown("Subtype", "", []);
-
+  //dohvaćanje svih proizvoda
   useEffect(() => {
     fetch("http://localhost:5123/items")
       .then(res => res.json())
       .then(items => {
-        setAllProducts(items);
-        setProducts(items);
-
-        // Tipovi i podtipovi
-        const types = [...new Set(items.map(i => i.type))];
-        setTipovi(types);
+        //spremanje svih proizvoda
+        setAllItems(items);
+        setFilteredItems(items);
+        //mapiranje i postavljanje tipova,podtipova
+        const types = [...new Set(items.map(item => item.type))];
         setTypeOptions(types);
-        setType(types[0]);
-
-        const subMap = {};
-        types.forEach(t => {
-          subMap[t] = [...new Set(items.filter(i => i.type === t).map(i => i.subtype))];
+        setSelectedType(types[0]);
+        const subtypeMap = {};
+        types.forEach(type => { 
+          subtypeMap[type] = [ 
+            ...new Set(
+              items
+                .filter(item => item.type === type)
+                .map(item => item.subtype)
+            )
+          ];
         });
-        setPodtipovi(subMap);
-        setSubtypeOptions(subMap[types[0]]);
-        setSubtype(subMap[types[0]][0]);
+        setSubtypesByType(subtypeMap);
+        //postavljanje početnih opcija
+        setSubtypeOptions(subtypeMap[types[0]]);
+        setSelectedSubtype(subtypeMap[types[0]][0]);
       })
       .catch(err => console.error("Fetch error:", err));
   }, []);
-
-  //promjena podtipa kad se tip promijeni
+  //reagiranje na promjene tipa
   useEffect(() => {
-    if (type && podtipovi[type]) {
-      setSubtypeOptions(podtipovi[type]);
-      setSubtype(podtipovi[type][0]);
-    }
-  }, [type, podtipovi]);
+    if (!selectedType || !subtypesByType[selectedType]) return;
+    setSubtypeOptions(subtypesByType[selectedType]);
+    setSelectedSubtype(subtypesByType[selectedType][0]);
+  }, [selectedType, subtypesByType]);
+  //handler za searchanje proizvoda
+  const handleSearch = () => {
+    const results = allItems.filter(
+      item =>
+        item.type === selectedType &&
+        item.subtype === selectedSubtype
+    );
 
-  const getProducts = () => {
-    const filtered = allProducts.filter(i => i.type === type && i.subtype === subtype);
-    setProducts(filtered);
+    setFilteredItems(results);
   };
-
   //grupiranje po proizvođaču
-  const groupedByManufacturer = products.reduce((acc, item) => {
-    const name = item.manufacturer?.name || item.manufacturer;
-    if (!acc[name]) acc[name] = [];
-    acc[name].push(item);
-    return acc;
+  const groupedByManufacturer = filteredItems.reduce((grouped, item) => {
+    const manufacturerName =
+      item.manufacturer?.name || item.manufacturer;
+
+    if (!grouped[manufacturerName]) {
+      grouped[manufacturerName] = [];
+    }
+    grouped[manufacturerName].push(item);
+    return grouped;
   }, {});
+
 
   return (
     <div>
       <form>
         <TypeDropdown /><br />
         <SubtypeDropdown /><br /><br />
-        <button type="button" onClick={getProducts}>Search</button>
+        <button type="button" onClick={handleSearch}>Search</button>
       </form>
 
       {Object.keys(groupedByManufacturer).sort().map(mName => (

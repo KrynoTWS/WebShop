@@ -207,11 +207,11 @@
       });
     }
   }
-})({"frqA7":[function(require,module,exports,__globalThis) {
+})({"87MKF":[function(require,module,exports,__globalThis) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
-var HMR_SERVER_PORT = 1234;
+var HMR_SERVER_PORT = 1250;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "439701173a9199ea";
 var HMR_USE_SSE = false;
@@ -25249,23 +25249,27 @@ var _s = $RefreshSig$();
 const AuthContext = /*#__PURE__*/ (0, _react.createContext)();
 const AuthProvider = ({ children })=>{
     _s();
+    //namještanje postojećeg korisnik ako postoji
     const [user, setUser] = (0, _react.useState)(()=>{
         const savedUser = localStorage.getItem("user");
         return savedUser ? JSON.parse(savedUser) : null;
     });
     const [token, setToken] = (0, _react.useState)(()=>localStorage.getItem("token") || null);
+    //spremanje tokena pri promjeni tokena
     (0, _react.useEffect)(()=>{
         if (token) localStorage.setItem("token", token);
         else localStorage.removeItem("token");
     }, [
         token
     ]);
+    //nakon refreshanja stranice ostaje korisnik isti
     (0, _react.useEffect)(()=>{
         if (user) localStorage.setItem("user", JSON.stringify(user));
         else localStorage.removeItem("user");
     }, [
         user
     ]);
+    //sprema podatke korisnika i JWT token
     const login = (userData, jwtToken)=>{
         setUser(userData);
         setToken(jwtToken);
@@ -25274,6 +25278,7 @@ const AuthProvider = ({ children })=>{
         setUser(null);
         setToken(null);
     };
+    //ako admin
     const isAdmin = ()=>user?.role === "admin";
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(AuthContext.Provider, {
         value: {
@@ -25286,7 +25291,7 @@ const AuthProvider = ({ children })=>{
         children: children
     }, void 0, false, {
         fileName: "src/context/AuthContext.js",
-        lineNumber: 35,
+        lineNumber: 36,
         columnNumber: 5
     }, undefined);
 };
@@ -27671,7 +27676,7 @@ const Login = ()=>{
                 onSubmit: handleLogin,
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
-                        children: "Username"
+                        children: "Korisni\u010Dko ime"
                     }, void 0, false, {
                         fileName: "src/pages/Login.js",
                         lineNumber: 42,
@@ -27691,7 +27696,7 @@ const Login = ()=>{
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
-                        children: "Password"
+                        children: "Lozinka"
                     }, void 0, false, {
                         fileName: "src/pages/Login.js",
                         lineNumber: 45,
@@ -36917,7 +36922,6 @@ var prevRefreshSig = globalThis.$RefreshSig$;
 $parcel$ReactRefreshHelpers$9e50.prelude(module);
 
 try {
-// pages/AdminDashboard.js
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
@@ -36933,6 +36937,7 @@ const AdminDashboard = ()=>{
     const navigate = (0, _reactRouter.useNavigate)();
     const [items, setItems] = (0, _react.useState)([]);
     const [manufacturers, setManufacturers] = (0, _react.useState)([]);
+    //ako korisnik nema privilegije (nije admin), ide na početnu
     (0, _react.useEffect)(()=>{
         if (!user || !isAdmin()) {
             navigate("/");
@@ -36954,8 +36959,9 @@ const AdminDashboard = ()=>{
         isAdmin,
         navigate
     ]);
+    //provjere za brisanje
     const handleDeleteItem = async (id)=>{
-        if (!window.confirm("Are you sure you want to delete this item?")) return;
+        if (!window.confirm("Je li sigurno \u017Eeli\u0161 izbrisati ovaj produkt?")) return;
         try {
             await (0, _api.fetchWithToken)(`/items/${id}`, {
                 method: "DELETE"
@@ -36967,7 +36973,7 @@ const AdminDashboard = ()=>{
         }
     };
     const handleDeleteManufacturer = async (id)=>{
-        if (!window.confirm("Are you sure you want to delete this manufacturer?")) return;
+        if (!window.confirm("Je li sigurno \u017Eeli\u0161 izbrisati ovog proizvo\u0111a\u010Da?")) return;
         try {
             await (0, _api.fetchWithToken)(`/manufacturers/${id}`, {
                 method: "DELETE"
@@ -36978,34 +36984,35 @@ const AdminDashboard = ()=>{
             alert("Cannot delete manufacturer with linked items");
         }
     };
+    //izgled stranice
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
                 children: "Admin Dashboard"
             }, void 0, false, {
                 fileName: "src/pages/AdminDashboard.js",
-                lineNumber: 58,
+                lineNumber: 56,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
-                children: "Products"
+                children: "Proizvodi"
             }, void 0, false, {
                 fileName: "src/pages/AdminDashboard.js",
-                lineNumber: 59,
+                lineNumber: 57,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouter.Link), {
                 to: "/items/new",
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                    children: "Add New Item"
+                    children: "Dodaj novi proizvod"
                 }, void 0, false, {
                     fileName: "src/pages/AdminDashboard.js",
-                    lineNumber: 60,
+                    lineNumber: 58,
                     columnNumber: 29
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/pages/AdminDashboard.js",
-                lineNumber: 60,
+                lineNumber: 58,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("ul", {
@@ -37017,55 +37024,55 @@ const AdminDashboard = ()=>{
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouter.Link), {
                                 to: `/items/edit/${item._id}`,
                                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                                    children: "Edit"
+                                    children: "Izmjeni"
                                 }, void 0, false, {
                                     fileName: "src/pages/AdminDashboard.js",
-                                    lineNumber: 65,
+                                    lineNumber: 63,
                                     columnNumber: 50
                                 }, undefined)
                             }, void 0, false, {
                                 fileName: "src/pages/AdminDashboard.js",
-                                lineNumber: 65,
+                                lineNumber: 63,
                                 columnNumber: 13
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
                                 onClick: ()=>handleDeleteItem(item._id),
-                                children: "Delete"
+                                children: "Izbri\u0161i"
                             }, void 0, false, {
                                 fileName: "src/pages/AdminDashboard.js",
-                                lineNumber: 66,
+                                lineNumber: 64,
                                 columnNumber: 13
                             }, undefined)
                         ]
                     }, item._id, true, {
                         fileName: "src/pages/AdminDashboard.js",
-                        lineNumber: 63,
+                        lineNumber: 61,
                         columnNumber: 11
                     }, undefined))
             }, void 0, false, {
                 fileName: "src/pages/AdminDashboard.js",
-                lineNumber: 61,
+                lineNumber: 59,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
-                children: "Manufacturers"
+                children: "Proizvo\u0111a\u010Di"
             }, void 0, false, {
                 fileName: "src/pages/AdminDashboard.js",
-                lineNumber: 71,
+                lineNumber: 69,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouter.Link), {
                 to: "/manufacturers/new",
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                    children: "Add New Manufacturer"
+                    children: "Dodaj novog proizvo\u0111a\u010Da"
                 }, void 0, false, {
                     fileName: "src/pages/AdminDashboard.js",
-                    lineNumber: 72,
+                    lineNumber: 70,
                     columnNumber: 37
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/pages/AdminDashboard.js",
-                lineNumber: 72,
+                lineNumber: 70,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("ul", {
@@ -37075,40 +37082,40 @@ const AdminDashboard = ()=>{
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouter.Link), {
                                 to: `/manufacturers/edit/${m._id}`,
                                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                                    children: "Edit"
+                                    children: "Izmjeni"
                                 }, void 0, false, {
                                     fileName: "src/pages/AdminDashboard.js",
-                                    lineNumber: 77,
+                                    lineNumber: 75,
                                     columnNumber: 55
                                 }, undefined)
                             }, void 0, false, {
                                 fileName: "src/pages/AdminDashboard.js",
-                                lineNumber: 77,
+                                lineNumber: 75,
                                 columnNumber: 13
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
                                 onClick: ()=>handleDeleteManufacturer(m._id),
-                                children: "Delete"
+                                children: "Izbri\u0161i"
                             }, void 0, false, {
                                 fileName: "src/pages/AdminDashboard.js",
-                                lineNumber: 78,
+                                lineNumber: 76,
                                 columnNumber: 13
                             }, undefined)
                         ]
                     }, m._id, true, {
                         fileName: "src/pages/AdminDashboard.js",
-                        lineNumber: 75,
+                        lineNumber: 73,
                         columnNumber: 11
                     }, undefined))
             }, void 0, false, {
                 fileName: "src/pages/AdminDashboard.js",
-                lineNumber: 73,
+                lineNumber: 71,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/pages/AdminDashboard.js",
-        lineNumber: 57,
+        lineNumber: 55,
         columnNumber: 5
     }, undefined);
 };
@@ -37254,7 +37261,7 @@ const ItemForm = ()=>{
     const handleTypeChange = (e)=>{
         const val = e.target.value;
         if (val === "__new__") {
-            const newType = prompt("Enter new type:");
+            const newType = prompt("Unesi novu vrstu:");
             if (newType) {
                 setTipovi((prev)=>[
                         ...prev,
@@ -37272,7 +37279,7 @@ const ItemForm = ()=>{
     const handleSubtypeChange = (e)=>{
         const val = e.target.value;
         if (val === "__new__") {
-            const newSubtype = prompt("Enter new subtype:");
+            const newSubtype = prompt("Unesi novu podvrstu:");
             if (newSubtype) {
                 setPodtipovi((prev)=>({
                         ...prev,
@@ -37319,7 +37326,7 @@ const ItemForm = ()=>{
         className: "editForm",
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                children: id ? "Edit Item" : "Add New Item"
+                children: id ? "Izmjeni produkt" : "Dodaj novi produkt"
             }, void 0, false, {
                 fileName: "src/pages/ItemForm.js",
                 lineNumber: 150,
@@ -37626,6 +37633,7 @@ const ManufacturerForm = ()=>{
         description: "",
         logoUrl: ""
     });
+    //dobavljanje podataka/ako nije admin, nazad
     (0, _react.useEffect)(()=>{
         if (!user || !isAdmin()) navigate("/");
         if (id) (0, _api.fetchWithToken)(`/manufacturers/${id}`).then((data)=>setManufacturer(data.manufacturer));
@@ -37671,7 +37679,7 @@ const ManufacturerForm = ()=>{
                 onSubmit: handleSubmit,
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
-                        children: "Name"
+                        children: "Naziv"
                     }, void 0, false, {
                         fileName: "src/pages/ManufacturerForm.js",
                         lineNumber: 57,
@@ -37692,7 +37700,7 @@ const ManufacturerForm = ()=>{
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
-                        children: "Country"
+                        children: "Zemlja"
                     }, void 0, false, {
                         fileName: "src/pages/ManufacturerForm.js",
                         lineNumber: 60,
@@ -37713,7 +37721,7 @@ const ManufacturerForm = ()=>{
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
-                        children: "Founded Year"
+                        children: "Godina osnivanja"
                     }, void 0, false, {
                         fileName: "src/pages/ManufacturerForm.js",
                         lineNumber: 63,
@@ -37734,7 +37742,7 @@ const ManufacturerForm = ()=>{
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
-                        children: "Description"
+                        children: "Opis"
                     }, void 0, false, {
                         fileName: "src/pages/ManufacturerForm.js",
                         lineNumber: 66,
@@ -37777,7 +37785,7 @@ const ManufacturerForm = ()=>{
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
                         type: "submit",
-                        children: "Save"
+                        children: "Spremi"
                     }, void 0, false, {
                         fileName: "src/pages/ManufacturerForm.js",
                         lineNumber: 72,
@@ -37831,54 +37839,55 @@ var _dropdownDefault = parcelHelpers.interopDefault(_dropdown);
 var _s = $RefreshSig$();
 const Search = ()=>{
     _s();
-    const [tipovi, setTipovi] = (0, _react.useState)([]);
-    const [podtipovi, setPodtipovi] = (0, _react.useState)({});
-    const [allProducts, setAllProducts] = (0, _react.useState)([]);
-    const [products, setProducts] = (0, _react.useState)([]);
-    const [type, TypeDropdown, setType, setTypeOptions] = (0, _dropdownDefault.default)("Type", "", []);
-    const [subtype, SubtypeDropdown, setSubtype, setSubtypeOptions] = (0, _dropdownDefault.default)("Subtype", "", []);
+    const [allItems, setAllItems] = (0, _react.useState)({});
+    const [filteredItems, setFilteredItems] = (0, _react.useState)([]);
+    const [subtypesByType, setSubtypesByType] = (0, _react.useState)([]);
+    const [selectedType, TypeDropdown, setSelectedType, setTypeOptions] = (0, _dropdownDefault.default)("Type", "", []);
+    const [selectedSubtype, SubtypeDropdown, setSelectedSubtype, setSubtypeOptions] = (0, _dropdownDefault.default)("Subtype", "", []);
+    //dohvaćanje svih proizvoda
     (0, _react.useEffect)(()=>{
         fetch("http://localhost:5123/items").then((res)=>res.json()).then((items)=>{
-            setAllProducts(items);
-            setProducts(items);
-            // Tipovi i podtipovi
+            //spremanje svih proizvoda
+            setAllItems(items);
+            setFilteredItems(items);
+            //mapiranje i postavljanje tipova,podtipova
             const types = [
-                ...new Set(items.map((i)=>i.type))
+                ...new Set(items.map((item)=>item.type))
             ];
-            setTipovi(types);
             setTypeOptions(types);
-            setType(types[0]);
-            const subMap = {};
-            types.forEach((t)=>{
-                subMap[t] = [
-                    ...new Set(items.filter((i)=>i.type === t).map((i)=>i.subtype))
+            setSelectedType(types[0]);
+            const subtypeMap = {};
+            types.forEach((type)=>{
+                subtypeMap[type] = [
+                    ...new Set(items.filter((item)=>item.type === type).map((item)=>item.subtype))
                 ];
             });
-            setPodtipovi(subMap);
-            setSubtypeOptions(subMap[types[0]]);
-            setSubtype(subMap[types[0]][0]);
+            setSubtypesByType(subtypeMap);
+            //postavljanje početnih opcija
+            setSubtypeOptions(subtypeMap[types[0]]);
+            setSelectedSubtype(subtypeMap[types[0]][0]);
         }).catch((err)=>console.error("Fetch error:", err));
     }, []);
-    //promjena podtipa kad se tip promijeni
+    //reagiranje na promjene tipa
     (0, _react.useEffect)(()=>{
-        if (type && podtipovi[type]) {
-            setSubtypeOptions(podtipovi[type]);
-            setSubtype(podtipovi[type][0]);
-        }
+        if (!selectedType || !subtypesByType[selectedType]) return;
+        setSubtypeOptions(subtypesByType[selectedType]);
+        setSelectedSubtype(subtypesByType[selectedType][0]);
     }, [
-        type,
-        podtipovi
+        selectedType,
+        subtypesByType
     ]);
-    const getProducts = ()=>{
-        const filtered = allProducts.filter((i)=>i.type === type && i.subtype === subtype);
-        setProducts(filtered);
+    //handler za searchanje proizvoda
+    const handleSearch = ()=>{
+        const results = allItems.filter((item)=>item.type === selectedType && item.subtype === selectedSubtype);
+        setFilteredItems(results);
     };
     //grupiranje po proizvođaču
-    const groupedByManufacturer = products.reduce((acc, item)=>{
-        const name = item.manufacturer?.name || item.manufacturer;
-        if (!acc[name]) acc[name] = [];
-        acc[name].push(item);
-        return acc;
+    const groupedByManufacturer = filteredItems.reduce((grouped, item)=>{
+        const manufacturerName = item.manufacturer?.name || item.manufacturer;
+        if (!grouped[manufacturerName]) grouped[manufacturerName] = [];
+        grouped[manufacturerName].push(item);
+        return grouped;
     }, {});
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: [
@@ -37886,42 +37895,42 @@ const Search = ()=>{
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(TypeDropdown, {}, void 0, false, {
                         fileName: "src/pages/Search.js",
-                        lineNumber: 62,
+                        lineNumber: 73,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                         fileName: "src/pages/Search.js",
-                        lineNumber: 62,
+                        lineNumber: 73,
                         columnNumber: 25
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(SubtypeDropdown, {}, void 0, false, {
                         fileName: "src/pages/Search.js",
-                        lineNumber: 63,
+                        lineNumber: 74,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                         fileName: "src/pages/Search.js",
-                        lineNumber: 63,
+                        lineNumber: 74,
                         columnNumber: 28
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                         fileName: "src/pages/Search.js",
-                        lineNumber: 63,
+                        lineNumber: 74,
                         columnNumber: 34
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
                         type: "button",
-                        onClick: getProducts,
+                        onClick: handleSearch,
                         children: "Search"
                     }, void 0, false, {
                         fileName: "src/pages/Search.js",
-                        lineNumber: 64,
+                        lineNumber: 75,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/pages/Search.js",
-                lineNumber: 61,
+                lineNumber: 72,
                 columnNumber: 7
             }, undefined),
             Object.keys(groupedByManufacturer).sort().map((mName)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -37930,7 +37939,7 @@ const Search = ()=>{
                             children: mName
                         }, void 0, false, {
                             fileName: "src/pages/Search.js",
-                            lineNumber: 69,
+                            lineNumber: 80,
                             columnNumber: 11
                         }, undefined),
                         groupedByManufacturer[mName].map((product)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _resultDefault.default), {
@@ -37939,23 +37948,23 @@ const Search = ()=>{
                                 ]
                             }, product._id, false, {
                                 fileName: "src/pages/Search.js",
-                                lineNumber: 71,
+                                lineNumber: 82,
                                 columnNumber: 13
                             }, undefined))
                     ]
                 }, mName, true, {
                     fileName: "src/pages/Search.js",
-                    lineNumber: 68,
+                    lineNumber: 79,
                     columnNumber: 9
                 }, undefined))
         ]
     }, void 0, true, {
         fileName: "src/pages/Search.js",
-        lineNumber: 60,
+        lineNumber: 71,
         columnNumber: 5
     }, undefined);
 };
-_s(Search, "t0mIQ/Ctv4dilvcLKt5BL8Zrd1E=", false, function() {
+_s(Search, "pc7oPm1toKURu8Rxi9mseLzeLnA=", false, function() {
     return [
         (0, _dropdownDefault.default),
         (0, _dropdownDefault.default)
@@ -38209,6 +38218,7 @@ const FavoritesProvider = ({ children })=>{
     _s();
     const { token, user } = (0, _react.useContext)((0, _authContextDefault.default));
     const [favorites, setFavorites] = (0, _react.useState)([]);
+    //mijenjanje favorita pri izmjeni korisnika
     (0, _react.useEffect)(()=>{
         if (!token || !user?._id) {
             setFavorites([]);
@@ -38233,6 +38243,7 @@ const FavoritesProvider = ({ children })=>{
     }, [
         token
     ]);
+    //micanje ili stavljanje produkta u favorite
     const toggleFavorite = async (item)=>{
         if (!token) return;
         try {
@@ -38257,7 +38268,7 @@ const FavoritesProvider = ({ children })=>{
         children: children
     }, void 0, false, {
         fileName: "src/context/FavoritesContext.js",
-        lineNumber: 50,
+        lineNumber: 48,
         columnNumber: 5
     }, undefined);
 };
@@ -38569,25 +38580,22 @@ const Details = ()=>{
     const navigate = (0, _reactRouter.useNavigate)();
     const { addToCart } = (0, _react.useContext)((0, _kosaricaContextDefault.default));
     const { favorites, toggleFavorite } = (0, _react.useContext)((0, _favoritesContextDefault.default));
-    const { user } = (0, _react.useContext)((0, _authContextDefault.default));
+    const { user, token } = (0, _react.useContext)((0, _authContextDefault.default));
     const [product, setProduct] = (0, _react.useState)(null);
     const [loading, setLoading] = (0, _react.useState)(true);
     const [modal, setModal] = (0, _react.useState)({
         show: false
     });
+    //dohvaćanje detalja proizvoda, provjera je li korisnik
     (0, _react.useEffect)(()=>{
         const fetchProduct = async ()=>{
             try {
-                const token1 = localStorage.getItem("token");
+                const token = localStorage.getItem("token");
                 const res = await fetch(`http://localhost:5123/items/${id}`, {
                     headers: {
-                        Authorization: `Bearer ${token1}`
+                        Authorization: `Bearer ${token}`
                     }
                 });
-                if (res.status === 401) {
-                    navigate("/login");
-                    return;
-                }
                 const data = await res.json();
                 setProduct(data);
                 setLoading(false);
@@ -38619,17 +38627,18 @@ const Details = ()=>{
         children: "U\u010Ditavanje..."
     }, void 0, false, {
         fileName: "src/pages/Details.js",
-        lineNumber: 54,
+        lineNumber: 49,
         columnNumber: 23
     }, undefined);
     if (!product) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
         children: "Proizvod ne postoji!"
     }, void 0, false, {
         fileName: "src/pages/Details.js",
-        lineNumber: 55,
+        lineNumber: 50,
         columnNumber: 24
     }, undefined);
     const isFavorite = favorites.some((f)=>f._id === product._id);
+    //ako nije ulogiran, ne može kupiti ni favorizirati
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         className: "details",
         children: [
@@ -38637,7 +38646,7 @@ const Details = ()=>{
                 children: product.name
             }, void 0, false, {
                 fileName: "src/pages/Details.js",
-                lineNumber: 61,
+                lineNumber: 56,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
@@ -38647,13 +38656,13 @@ const Details = ()=>{
                             "Vrsta:",
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                                 fileName: "src/pages/Details.js",
-                                lineNumber: 62,
+                                lineNumber: 57,
                                 columnNumber: 24
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/pages/Details.js",
-                        lineNumber: 62,
+                        lineNumber: 57,
                         columnNumber: 10
                     }, undefined),
                     " ",
@@ -38661,7 +38670,7 @@ const Details = ()=>{
                 ]
             }, void 0, true, {
                 fileName: "src/pages/Details.js",
-                lineNumber: 62,
+                lineNumber: 57,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
@@ -38671,13 +38680,13 @@ const Details = ()=>{
                             "Podvrsta:",
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                                 fileName: "src/pages/Details.js",
-                                lineNumber: 63,
+                                lineNumber: 58,
                                 columnNumber: 27
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/pages/Details.js",
-                        lineNumber: 63,
+                        lineNumber: 58,
                         columnNumber: 10
                     }, undefined),
                     " ",
@@ -38685,7 +38694,7 @@ const Details = ()=>{
                 ]
             }, void 0, true, {
                 fileName: "src/pages/Details.js",
-                lineNumber: 63,
+                lineNumber: 58,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
@@ -38695,13 +38704,13 @@ const Details = ()=>{
                             "Opis:",
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                                 fileName: "src/pages/Details.js",
-                                lineNumber: 64,
+                                lineNumber: 59,
                                 columnNumber: 23
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/pages/Details.js",
-                        lineNumber: 64,
+                        lineNumber: 59,
                         columnNumber: 10
                     }, undefined),
                     " ",
@@ -38709,7 +38718,7 @@ const Details = ()=>{
                 ]
             }, void 0, true, {
                 fileName: "src/pages/Details.js",
-                lineNumber: 64,
+                lineNumber: 59,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
@@ -38719,13 +38728,13 @@ const Details = ()=>{
                             "Boja pi\u0107a:",
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                                 fileName: "src/pages/Details.js",
-                                lineNumber: 65,
+                                lineNumber: 60,
                                 columnNumber: 28
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/pages/Details.js",
-                        lineNumber: 65,
+                        lineNumber: 60,
                         columnNumber: 10
                     }, undefined),
                     " ",
@@ -38733,7 +38742,7 @@ const Details = ()=>{
                 ]
             }, void 0, true, {
                 fileName: "src/pages/Details.js",
-                lineNumber: 65,
+                lineNumber: 60,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
@@ -38743,13 +38752,13 @@ const Details = ()=>{
                             "Kofein:",
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                                 fileName: "src/pages/Details.js",
-                                lineNumber: 66,
+                                lineNumber: 61,
                                 columnNumber: 25
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/pages/Details.js",
-                        lineNumber: 66,
+                        lineNumber: 61,
                         columnNumber: 10
                     }, undefined),
                     " ",
@@ -38758,7 +38767,7 @@ const Details = ()=>{
                 ]
             }, void 0, true, {
                 fileName: "src/pages/Details.js",
-                lineNumber: 66,
+                lineNumber: 61,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
@@ -38768,13 +38777,13 @@ const Details = ()=>{
                             "Proizvo\u0111a\u010D:",
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                                 fileName: "src/pages/Details.js",
-                                lineNumber: 67,
+                                lineNumber: 62,
                                 columnNumber: 29
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/pages/Details.js",
-                        lineNumber: 67,
+                        lineNumber: 62,
                         columnNumber: 10
                     }, undefined),
                     " ",
@@ -38782,7 +38791,7 @@ const Details = ()=>{
                 ]
             }, void 0, true, {
                 fileName: "src/pages/Details.js",
-                lineNumber: 67,
+                lineNumber: 62,
                 columnNumber: 7
             }, undefined),
             user && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
@@ -38792,7 +38801,7 @@ const Details = ()=>{
                         children: isFavorite ? "Ukloni iz favorita" : "Dodaj u favorite"
                     }, void 0, false, {
                         fileName: "src/pages/Details.js",
-                        lineNumber: 71,
+                        lineNumber: 66,
                         columnNumber: 11
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -38800,7 +38809,7 @@ const Details = ()=>{
                         children: "Dodaj u ko\u0161aricu"
                     }, void 0, false, {
                         fileName: "src/pages/Details.js",
-                        lineNumber: 74,
+                        lineNumber: 69,
                         columnNumber: 11
                     }, undefined)
                 ]
@@ -38810,7 +38819,7 @@ const Details = ()=>{
                 children: "Pretra\u017Eivanje"
             }, void 0, false, {
                 fileName: "src/pages/Details.js",
-                lineNumber: 77,
+                lineNumber: 72,
                 columnNumber: 7
             }, undefined),
             modal.show && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _modalDefault.default), {
@@ -38824,22 +38833,22 @@ const Details = ()=>{
                     ]
                 }, void 0, true, {
                     fileName: "src/pages/Details.js",
-                    lineNumber: 81,
+                    lineNumber: 76,
                     columnNumber: 11
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/pages/Details.js",
-                lineNumber: 80,
+                lineNumber: 75,
                 columnNumber: 9
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/pages/Details.js",
-        lineNumber: 60,
+        lineNumber: 55,
         columnNumber: 5
     }, undefined);
 };
-_s(Details, "5Z+OV00e3T2n4GIyMZrpkq1BUys=", false, function() {
+_s(Details, "PHQ3iuVxVPbz9b9Vds3kpXAfWnI=", false, function() {
     return [
         (0, _reactRouter.useParams),
         (0, _reactRouter.useNavigate)
@@ -39224,7 +39233,7 @@ const Manufacturer = ()=>{
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                                 children: [
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                        children: "Country:"
+                                        children: "Zemlja:"
                                     }, void 0, false, {
                                         fileName: "src/pages/Manufacturers.js",
                                         lineNumber: 34,
@@ -39241,7 +39250,7 @@ const Manufacturer = ()=>{
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                                 children: [
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                        children: "Founded:"
+                                        children: "Godina osnivanja:"
                                     }, void 0, false, {
                                         fileName: "src/pages/Manufacturers.js",
                                         lineNumber: 37,
@@ -39328,7 +39337,7 @@ const ManufacturerDetail = ()=>{
             } catch (err) {
                 console.error("Gre\u0161ka pri u\u010Ditavanju proizvo\u0111a\u010Da:", err);
                 alert("Gre\u0161ka pri u\u010Ditavanju proizvo\u0111a\u010Da");
-                navigate("/manufacturers"); //vrati se nazad u slučaju greške
+                navigate("/manufacturers");
             } finally{
                 setLoading(false);
             }
@@ -39502,6 +39511,6 @@ $RefreshReg$(_c, "ManufacturerDetail");
   globalThis.$RefreshReg$ = prevRefreshReg;
   globalThis.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","react-router":"2jawN","../api":"38UJz","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}]},["frqA7","hh6uc"], "hh6uc", "parcelRequire52ca", {}, null, null, "http://localhost:1234")
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","react-router":"2jawN","../api":"38UJz","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}]},["87MKF","hh6uc"], "hh6uc", "parcelRequire52ca", {}, null, null, "http://localhost:1250")
 
 //# sourceMappingURL=seminar.2c54e4d8.js.map

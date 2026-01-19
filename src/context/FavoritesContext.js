@@ -6,13 +6,12 @@ const FavoritesContext = createContext();
 export const FavoritesProvider = ({ children }) => {
   const { token,user } = useContext(AuthContext);
   const [favorites, setFavorites] = useState([]);
-
+  //mijenjanje favorita pri izmjeni korisnika
   useEffect(() => {
     if (!token|| !user?._id){
       setFavorites([]);
       return;
     }
-
     const fetchFavorites = async () => {
       try {
         const res = await fetch("http://localhost:5123/favorites", {
@@ -29,10 +28,9 @@ export const FavoritesProvider = ({ children }) => {
 
     fetchFavorites();
   }, [token]);
-
+  //micanje ili stavljanje produkta u favorite
   const toggleFavorite = async (item) => {
     if (!token) return;
-
     try {
       const res = await fetch(`http://localhost:5123/favorites/${item._id}`, {
         method: "POST",

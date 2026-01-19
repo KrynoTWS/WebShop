@@ -24,7 +24,7 @@ const ManufacturerDetail = () => {
       } catch (err) {
         console.error("Greška pri učitavanju proizvođača:", err);
         alert("Greška pri učitavanju proizvođača");
-        navigate("/manufacturers"); //vrati se nazad u slučaju greške
+        navigate("/manufacturers");
       } finally {
         setLoading(false);
       }

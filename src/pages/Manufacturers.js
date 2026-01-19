@@ -31,10 +31,10 @@ const Manufacturer = () => {
           >
             <h3>{m.name}</h3>
             <p>
-              <strong>Country:</strong> {m.country}
+              <strong>Zemlja:</strong> {m.country}
             </p>
             <p>
-              <strong>Founded:</strong> {m.foundedYear}
+              <strong>Godina osnivanja:</strong> {m.foundedYear}
             </p>
             <img
               src={m.logoUrl}
